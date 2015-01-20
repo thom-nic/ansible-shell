@@ -1,0 +1,41 @@
+# Startup file for 'screen' terminal manager (see 'man screen').
+# 
+
+#show red BG, window list, spacer, & system load - time @ right edge
+#caption always "%{= BW} %w %= %l - %c "
+hardstatus alwayslastline "%{= BW} %w - %= | %c"
+nethack on
+#wrap on
+
+#http://edeca.net/site/linux:screen
+#caption always "%{= bb}%{+b w}Screen: %n | %h %=%t %c"
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+# Our warning of activity
+activity "Activity in %t(%n)"
+
+# emulate .logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+startup_message off
+#caption always "%w"
+#shelltitle hostname
+
+# caption always "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+# The available windows centered at the current window and truncated 
+# to the available width. The current window is displayed white on blue. 
+# This can be used with `hardstatus alwayslastline'. 
+
+# caption always "%?%F%{.R.}%?%3n %t%? [%h]%?"
+# The window number and title and the window's hardstatus, if one is 
+# set. Also use a red background if this is the active focus. Useful for 
+# `caption string'.
+
+# advertise hardstatus support to $TERMCAP
+termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
+
+# set every new windows hardstatus line to somenthing descriptive
+defhstatus "screen: ^En (^Et)"
+
+defscrollback 5000
+#shell -/bin/bash
+#shelltitle '$ |sh'

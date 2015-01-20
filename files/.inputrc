@@ -1,0 +1,87 @@
+# controls several options for the bash command line interface. 
+# try "man readline" for more info
+set completion-ignore-case On
+set visible-stats On
+set show-all-if-ambiguous On
+set bell-style none
+set editing-mode emacs
+
+$if Bash
+  Space: magic-space
+$endif
+
+#Existing useful key commands:
+#C-P	Previous command	(Ctrl-P)
+#C-R	Search command history
+#C-A	Beginning of line
+#C-E	End of line
+#C-U	Clear to beginning of line
+#M-B	Back one word
+#M-F	Foward one word
+#M-C	Capitalize letter under cursor & jump to next word
+#M-.	Insert last arg of last command
+#
+# !! is the previous command line
+# !:0 is the previous command name
+# !-2, !-3, are earlier commands
+# !^, !:2, !:3, !$ are the arguments
+# !* is all the arguments
+# See also:
+# http://www.chemie.fu-berlin.de/chemnet/use/info/octave/octave_34.html
+
+# forward delete does not always work in some shells... this should fix it.
+"\e[3~": delete-char
+#"\C-?": backward-delete-char
+
+"\C-v": paste-from-clipboard
+
+# From http://www.ukuug.org/events/linux2003/papers/bash_tips/
+# Incremental searching with Up and Down is configured in .inputrc
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+# Old behaviour still available with Ctrl+P and Ctrl+N
+# If that prevents Left and Right from working, fix them like this:
+"\e[C": forward-char
+"\e[D": backward-char
+
+#Home and end keys (rxvt and konsole only)
+"\e[7~":beginning-of-line
+"\e[8~":end-of-line
+# On OSX, this is Fn-left and Fn-right
+"\e[1~":beginning-of-line
+"\e[4~":end-of-line
+
+# Move forward and backwards 1 word at a time with Ctrl + Left & Right
+# Note that this can screw things up on some terminals
+#"\eOc": forward-word
+#"\eOd": backward-word
+#for Mac OSX: ctrl-left and right:
+#"\e[5C": forward-word
+#"\e[5D": backward-word
+#Alt-left and right (OSX defaults:)
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Clear from cursor to EOL
+"\C-k": kill-line
+
+# Assume the last arg of the previous cmd was a directory and CD there. 
+# use M-. or !$.
+"\M-g": "\M-zcd !$\n"
+
+#repeat the last command with sudo in front:
+"\M-s": "\M-zsudo !!"
+
+# Insert-Option Macro
+# Load the previous command and position the cursor for typing an option
+"\M-x": "\C-p\C-a\M-f "
+
+# Cycle through possible auto-completions
+"\M-a": menu-complete
+
+# Clear the entire line in one keystroke
+"\M-z": "\C-e\C-u"
+
+# Other unused key shortcuts:
+# Meta+A, Meta+E, Meta+G, Meta+H, Meta+I, Meta+J, Meta+K, Meta+M, Meta+O, 
+# Meta+Q, Meta+S, Meta+V, Meta+W, Meta+X, and Meta+Z.

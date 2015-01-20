@@ -1,0 +1,14 @@
+---
+
+- name: copy dotfiles to user dir
+  copy:
+    src={{ item }}
+    dest={{ ansible_env['HOME'] }}/
+  with_items:
+    - .bash_profile
+    - .bashrc
+    - .exports
+    - .aliases
+    - .functions
+    - .inputrc
+    - .vimrc

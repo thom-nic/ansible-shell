@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Thom Nichols
+  description: Make yer shell pretty
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+    - system
+dependencies: []

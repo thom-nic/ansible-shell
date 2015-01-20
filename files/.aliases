@@ -1,0 +1,31 @@
+# bash and zsh aliases
+# vi: ft=sh
+
+alias sudo='sudo '
+alias fuck='sudo bash -c "$(fc -ln -1)"'
+
+alias ls='ls -G'
+alias l="ls -F"
+alias la='ls -AF'
+alias ll='ls -lhF'
+alias bd='cd -'
+alias up='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias md='mkdir -p'
+alias ff='find . -iname'
+alias wad='tar -czvf'
+alias unwad='tar -xzvf'
+alias wgetall='wget -rk -np'
+alias usage='du -hcs'
+alias ctop="top -o cpu"
+alias tvim='gvim -p --remote-tab-silent'
+alias tabe='gvim -p --remote-tab-silent'
+alias grep='grep --color=auto'
+alias pico='nano'
+alias http='python -m SimpleHTTPServer'
+
+alias ssx='ssh -C -X -c blowfish'
+alias sshi='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias scpi='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'

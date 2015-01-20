@@ -1,0 +1,10 @@
+# vi: ft=sh
+
+test -d $HOME/bin && export PATH=$HOME/bin:$PATH
+
+export LS_COLORS='fi=0:di=34:ln=36:ex=35:pi=5;44:so=5;44:bd=35;42:cd=36;42:or=37;41:mi=33;41'
+export EDITOR="vim"
+export HISTCONTROL='ignoreboth'
+export HISTIGNORE="&: *:[bf]g:exit:logout"
+export FIGNORE=CVS:\~:.svn
+
