@@ -12,3 +12,5 @@
     - .functions
     - .inputrc
     - .vimrc
+    - .screenrc
+    - .tmux.conf
