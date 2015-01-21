@@ -1,10 +1,10 @@
 # set the terminal title to the current directory.
 case $TERM in
   xterm*)
-    PROMPT_COMMAND='echo -e "\033]0;${PWD}\007"'
+    export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
     ;;
-  screen)
-    PROMPT_COMMAND="echo -e '\033k'\${PWD}'\033\\'"
+  screen*)
+    export PROMPT_COMMAND='echo -e "\033_${USER}@${HOSTNAME: ${PWD}\033\\"'
     ;;
 esac
 
