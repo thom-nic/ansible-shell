@@ -3,18 +3,26 @@
 
 startup_message off
 defscrollback 5000
-shelltitle hostname
-#shelltitle '$ |sh'
-#mousetrack on
+shelltitle '$ |bash'
 nethack on
+#mousetrack on
 #wrap on
 #shell -bash
+#utf8 on on
 
+# Set the status line:
+# show magenta hostname, cyan window list [spacer] green load average | date & time
 # https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html
 # http://aperiodic.net/screen/man:string_escapes
-#show magenta hostname, cyan window list [spacer] green load average | date & time
-hardstatus alwayslastline "%{= kw}%{M}%H | %{C}%w %=%{g}%l%{y} | %D %m/%d %C%a "
+caption always lastline
+caption string "%{= kw}%{M}%H | %{C}%w %=%{g}%l%{y} | %D %m/%d %C%a "
+
+# Set the shell title:
 defhstatus "(^En) ^Et"
+hardstatus off
+hardstatus string "%H %t (%n)"
+# if shell title is set correctly this is redundant:
+#hardstatus string "screen %n (%t)%? [%h]%?"
 
 activity "Activity in (%n) %t"
 
@@ -25,4 +33,6 @@ pow_detach_msg "Screen session \$LOGNAME \$:cr:\$:nl:ended."
 termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
 attrcolor b ".I"
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo xterm*|rxvt* 'hs:ts=\E]0;:fs=\007:ds=\E]0;foo\007'
 defbce on
+
