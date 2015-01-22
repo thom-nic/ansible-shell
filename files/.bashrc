@@ -1,9 +1,13 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-[ -f $HOME/.aliases ] && . $HOME/.aliases
-[ -f $HOME/.functions ] && . $HOME/.functions
+test -f $HOME/.aliases && . $HOME/.aliases
+test -f $HOME/.functions && . $HOME/.functions
 
+# From http://www.ukuug.org/events/linux2003/papers/bash_tips/
+# Do simple directory spelling corrections
 shopt -s cdspell
 shopt -s checkwinsize
 shopt -s no_empty_cmd_completion
@@ -11,6 +15,21 @@ shopt -s histappend
 
 umask 0027
 
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Set window title and prompt:
+case $TERM in
+  screen*)
+    # Just use working dir for title
+    # Add null escape sequence for screen
+    shell_title='\ek\w\a\e\\'
+    ;;
+  *)
+    # Window title format: user@host [dir]
+    shell_title='\[\e]0;\u@\h [\w]\a\]'
+    ;;
+esac
 
+# Prompt format: user@host [dir] \n$
+prompt='\n\[\e[35m\]\u\[\e[37m\]@\[\e[32m\]\h \[\e[33m\]\w\[\e[0m\]'
+# put the shell title on the second prompt line for screen
+PS1=${prompt}'\n'${shell_title}'\$ '
+unset shell_title prompt
