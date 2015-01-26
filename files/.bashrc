@@ -24,7 +24,7 @@ case $TERM in
     ;;
   *)
     # Window title format: user@host [dir]
-    shell_title='\[\e]0;\u@\h [\w]\a\]'
+    shell_title='\e]0;\u@\h [\w]\a'
     ;;
 esac
 
@@ -33,3 +33,20 @@ prompt='\n\[\e[35m\]\u\[\e[37m\]@\[\e[32m\]\h \[\e[33m\]\w\[\e[0m\]'
 # put the shell title on the second prompt line for screen
 PS1=${prompt}'\n'${shell_title}'\$ '
 unset shell_title prompt
+
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+  # Mac/ homebrew:
+  if [ -d /usr/local/etc/bash_completion.d ]; then
+    for f in $(find /usr/local/etc/bash_completion.d -type f); do
+      . $f
+    done
+    unset f
+  # Linux:
+  elif [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  # Legacy *NIX/ BSD:
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
