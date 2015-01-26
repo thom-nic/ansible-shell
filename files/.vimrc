@@ -1,3 +1,6 @@
+" Vim init.  Note this assumes a standard build of Vim/ GVim, not 'vim-tiny'
+set nocompatible
+
 "Use pathogen for plugins: https://github.com/tpope/vim-pathogen
 "My favorite bundles are at https://github.com/thom-nic/vim-bundles
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -65,41 +68,58 @@ set siso=3
 
 "____________________ Key mappings: ______________________
 " Ctrl-A -> Start of line, Ctrl-E -> End of line
-map <C-a> <Home>
-map <C-e> <End>
+" Mac users will probably not mind C-A being remapped since Cmd-A is used for
+" "select all" - Windows/ Linux users might not care for this behavior.
+" But C-A and E are universal on OS X which is incredibly handy.
+map  <C-a> <Home>
+map! <C-a> <ESC><Home><insert>
+map  <C-e> <End>
+map! <C-a> <ESC><End><insert>
 "Close a saved buffer:
-map <C-b> :bd<CR>
+map  <C-b> :bd<CR>
 map! <C-b> <ESC><c-b><insert>
 "Close an unsaved buffer (only in normal mode):
-map <C-S-B> :bd!<cr>
+map  <C-S-B> :bd!<cr>
 "Go to the next buffer:
-map <C-j> :bn<CR>
+map  <C-j> :bn<CR>
 map! <C-j> <ESC><C-j><insert>
-vm  <C-j> <ESC><C-j><insert>
+vm   <C-j> <ESC><C-j><insert>
 "Go to the previous buffer:
-map <C-k> :bp<CR>
+map  <C-k> :bp<CR>
 map! <C-k> <ESC><C-k><insert>
-vm <C-k> <ESC><C-k><insert>
+vm   <C-k> <ESC><C-k><insert>
 "go to the last used buffer:
-map <C-l> :b #<CR>
+map  <C-l> :b #<CR>
 map! <C-l> <ESC><C-l><INSERT>
-vm <C-l> <ESC><C-l><INSERT>
+vm   <C-l> <ESC><C-l><INSERT>
 "Use Ctrl-Space for autocomplete/intellisense.
 "insert mode only
 map! <C-SPACE> <C-N>
 map! <C-S-SPACE> <C-P>
 " Open a new tab:
-map <C-T> :tabe<CR>
+map  <C-T> :tabe<CR>
 map! <C-T> <ESC><C-T><INSERT>
 " Indent/unident selected lines
-vnoremap < <gv
-vnoremap > >gv
+vn   < <gv
+vn   > >gv
 
 "_______________ Plugin Options ________________
 
 " Set fonts for airline
 " https://github.com/bling/vim-airline#integrating-with-powerline-fonts
 let g:airline_powerline_fonts = 1
+
+" Options for the Go plugin:
+let g:go_loaded_install = 1
+" go autoformatter on save is annoying
+let g:go_fmt_autosave = 0
+
+" Rainbow Parens
+" https://github.com/kien/rainbow_parentheses.vim
+silent! au VimEnter * RainbowParenthesesToggle
+silent! au Syntax   * RainbowParenthesesLoadRound
+silent! au Syntax   * RainbowParenthesesLoadSquare
+silent! au Syntax   * RainbowParenthesesLoadBraces
 
 " ______________ File associations ______________
 "
