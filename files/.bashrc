@@ -13,8 +13,6 @@ shopt -s checkwinsize
 shopt -s no_empty_cmd_completion
 shopt -s histappend
 
-umask 0027
-
 # Set window title and prompt:
 case $TERM in
   screen*)
