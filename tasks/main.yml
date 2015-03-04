@@ -1,9 +1,10 @@
 ---
 
 - name: copy dotfiles to user dir
+  when: not shell_system_wide_install
   copy:
     src={{ item }}
-    dest={{ ansible_env['HOME'] }}/
+    dest={{ shell_user_dir }}
   with_items:
     - .bash_profile
     - .bashrc
@@ -14,3 +15,41 @@
     - .vimrc
     - .screenrc
     - .tmux.conf
+
+
+- name: install app-specific init files system-wide
+  when: shell_system_wide_install
+  copy:
+    src={{ src }}
+    dest=/etc/{{ dest }}
+  owner: root
+  group: root
+  mode: a+r
+  sudo: yes
+  with_items:
+    - src:  .vimrc
+      dest: vimrc
+    - src:  .inputrc
+      dest: inputrc
+    - src:  .screenrc
+      dest: screenrc
+
+- name: install shell init files system-wide
+  when: shell_system_wide_install
+  copy:
+    src={{ src }}
+    dest=/etc/profile.d/{{ dest }}
+  owner: root
+  group: root
+  mode: a+r
+  sudo: yes
+  with_items:
+    - src:  bashrc-system
+      dest: bashrc
+    - src:  .exports
+      dest: exports
+    - src:  .aliases
+      dest: aliases
+    - src:  .functions
+      dest: functions
+
