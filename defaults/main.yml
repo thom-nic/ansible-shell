@@ -1,3 +1,4 @@
 ---
 shell_system_wide_install: false
-shell_user_dir: {{ ansible_env['HOME'] }}/
+shell_user_dir: "{{ ansible_env['HOME'] }}/"
+shell_user: "{{ ansible_remote_user }}"
