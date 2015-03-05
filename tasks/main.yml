@@ -5,6 +5,7 @@
   copy:
     src={{ item }}
     dest={{ shell_user_dir }}
+    owner={{ shell_user }}
   with_items:
     - .bash_profile
     - .bashrc
@@ -20,11 +21,11 @@
 - name: install app-specific init files system-wide
   when: shell_system_wide_install
   copy:
-    src={{ src }}
-    dest=/etc/{{ dest }}
-  owner: root
-  group: root
-  mode: a+r
+    src={{ item.src }}
+    dest=/etc/{{ item.dest }}
+    mode=a+r
+    owner=root
+    group=root
   sudo: yes
   with_items:
     - src:  .vimrc
@@ -33,23 +34,25 @@
       dest: inputrc
     - src:  .screenrc
       dest: screenrc
+    - src: .tmux.conf
+      dest: tmux.conf
 
 - name: install shell init files system-wide
   when: shell_system_wide_install
   copy:
-    src={{ src }}
-    dest=/etc/profile.d/{{ dest }}
-  owner: root
-  group: root
-  mode: a+r
+    src={{ item.src }}
+    dest=/etc/profile.d/{{ item.dest }}
+    mode=a+r
+    owner=root
+    group=root
   sudo: yes
   with_items:
-    - src:  bashrc-system
-      dest: bashrc
-    - src:  .exports
-      dest: exports
+    - src:  bashrc.sh
+      dest: bashrc.sh
+    - src:  exports.sh
+      dest: exports.sh
     - src:  .aliases
-      dest: aliases
+      dest: aliases.sh
     - src:  .functions
-      dest: functions
+      dest: functions.sh
 
