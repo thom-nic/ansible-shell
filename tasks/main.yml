@@ -4,55 +4,46 @@
   when: not shell_system_wide_install
   copy:
     src={{ item }}
-    dest={{ shell_user_dir }}
+    dest={{ shell_user_dir }}/.{{ item }}
     owner={{ shell_user }}
   with_items:
-    - .bash_profile
-    - .bashrc
-    - .exports
-    - .aliases
-    - .functions
-    - .inputrc
-    - .vimrc
-    - .screenrc
-    - .tmux.conf
+    - bash_profile
+    - bashrc
+    - exports
+    - aliases
+    - functions
+    - inputrc
+    - vimrc
+    - screenrc
+    - tmux.conf
 
 
 - name: install app-specific init files system-wide
   when: shell_system_wide_install
   copy:
-    src={{ item.src }}
-    dest=/etc/{{ item.dest }}
+    src={{ item }}
+    dest=/etc/
     mode=a+r
     owner=root
     group=root
   sudo: yes
   with_items:
-    - src:  .vimrc
-      dest: vimrc
-    - src:  .inputrc
-      dest: inputrc
-    - src:  .screenrc
-      dest: screenrc
-    - src: .tmux.conf
-      dest: tmux.conf
+    - vimrc
+    - inputrc
+    - screenrc
+    - tmux.conf
 
 - name: install shell init files system-wide
   when: shell_system_wide_install
   copy:
-    src={{ item.src }}
-    dest=/etc/profile.d/{{ item.dest }}
+    src={{ item }}
+    dest=/etc/profile.d/{{ item }}.sh
     mode=a+r
     owner=root
     group=root
   sudo: yes
   with_items:
-    - src:  bashrc.sh
-      dest: bashrc.sh
-    - src:  exports.sh
-      dest: exports.sh
-    - src:  .aliases
-      dest: aliases.sh
-    - src:  .functions
-      dest: functions.sh
-
+    - bashrc-system
+    - exports-system
+    - aliases
+    - functions
