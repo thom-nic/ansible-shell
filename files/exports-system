@@ -10,11 +10,11 @@ export FIGNORE=CVS:\~:.svn
 export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
 export MAVEN_OPTS="-Xmx256m -XX:MaxPermSize=256m"
 if [ -d $HOME/.ec2 ]; then
-  export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
-  export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+  export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem | /usr/bin/head -1)"
+  export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem | /usr/bin/head -1)"
 fi
-export PYTHONSTARTUP=$HOME/.pystartup
-export DOCKER_HOST=tcp://:2375
+[ -d $HOME/.pystartup ] && export PYTHONSTARTUP=$HOME/.pystartup
+[ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 
 # Add additional customization if present
 [ -f $HOME/.exports.local ] && source $HOME/.exports.local
