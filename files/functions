@@ -4,12 +4,12 @@
 # SSH port forwarding: Forward the local port to the given dest host and port
 # Usage: forward 9906 3306 user@remote.net
 # See: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
-function fwd() {
+fwd () {
   ssh -f -N -L $1:127.0.0.1:$2 $3
 }
 
 # Grep here:  Find the search string in files in the given (or current) directory
-function gh() {
+gh () {
   pattern=$1
   shift
   grep -rniI $pattern ${@:-'.'}
