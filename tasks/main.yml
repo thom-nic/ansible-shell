@@ -17,7 +17,6 @@
     - screenrc
     - tmux.conf
 
-
 - name: install app-specific init files system-wide
   when: shell_system_wide_install
   copy:
@@ -26,7 +25,7 @@
     mode=a+r
     owner=root
     group=root
-  sudo: yes
+  become: yes
   with_items:
     - vimrc
     - inputrc
@@ -41,7 +40,7 @@
     mode=a+r
     owner=root
     group=root
-  sudo: yes
+  become: yes
   with_items:
     - bashrc-system
     - exports-system
